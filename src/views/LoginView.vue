@@ -23,7 +23,7 @@
     <div
       class="login-bg-text d-flex align-items-center justify-content-center animate__animated animate__flash animate__infinite animate__slower fs-2 t-shadow"
       role="button"
-      @click="testLoading"
+      @click="showLoginModal"
     >
       Toque para começar
     </div>
@@ -42,6 +42,169 @@
         <span class="float-end">v0.0.1</span></MDBContainer
       >
     </MDBFooter>
+    <MDBModal
+      id="loginModalCenter"
+      tabindex="-1"
+      labelledby="loginModalCenterTitle"
+      v-model="loginModal"
+      centered
+      :animation="false"
+    >
+      <MDBModalBody class="modal-body-custom rounded-5">
+        <form @submit.prevent="handleLoginSubmit">
+          <div class="mb-3">
+            <MDBInput
+              inputGroup
+              aria-label="E-mail"
+              aria-describedby="login-addon1"
+              placeholder="E-mail"
+              v-model="loginEmail"
+              class="form-color"
+              type="email"
+              required
+            >
+              <template v-slot:prepend>
+                <span
+                  class="input-group-text border-0 pe-0 form-color"
+                  id="login-addon1"
+                  ><i class="fa-solid fa-at"></i
+                ></span>
+              </template>
+            </MDBInput>
+          </div>
+          <div class="mb-3">
+            <MDBInput
+              inputGroup
+              aria-label="Senha"
+              aria-describedby="login-addon2"
+              placeholder="Senha"
+              v-model="loginPassword"
+              class="form-color"
+              type="password"
+              required
+            >
+              <template v-slot:prepend>
+                <span
+                  class="input-group-text border-0 pe-0 form-color"
+                  id="login-addon2"
+                  ><i class="fa-solid fa-lock"></i
+                ></span>
+              </template>
+            </MDBInput>
+          </div>
+          <ButtonComponent
+            :type="ButtonTypeEnum.Submit"
+            text="Login"
+            full-width
+            class="mb-3"
+          />
+          <ButtonComponent
+            :type="ButtonTypeEnum.Button"
+            text="Criar uma conta"
+            full-width
+            :color="ButtonColorEnum.Success"
+            class="mb-3"
+            @click="showRegisterModal"
+          />
+          <div class="text-center">
+            <MDBBtn
+              color="link"
+              class="text-capitalize btn-link-custom"
+              @click="showRecoveryModal"
+              >Esqueceu a senha?</MDBBtn
+            >
+          </div>
+        </form>
+      </MDBModalBody>
+    </MDBModal>
+    <MDBModal
+      id="registerModalCenter"
+      tabindex="-1"
+      labelledby="registerModalCenterTitle"
+      v-model="registerModal"
+      centered
+      :animation="false"
+    >
+      <MDBModalBody class="modal-body-custom rounded-5">
+        <form @submit.prevent="handleRegisterSubmit">
+          <div class="mb-3">
+            <MDBInput
+              inputGroup
+              aria-label="E-mail"
+              aria-describedby="register-addon1"
+              placeholder="E-mail"
+              v-model="email"
+              class="form-color"
+              type="email"
+              required
+            >
+              <template v-slot:prepend>
+                <span
+                  class="input-group-text border-0 pe-0 form-color"
+                  id="register-addon1"
+                  ><i class="fa-solid fa-at"></i
+                ></span>
+              </template>
+            </MDBInput>
+          </div>
+          <div class="mb-3">
+            <MDBInput
+              inputGroup
+              aria-label="Senha"
+              aria-describedby="register-addon2"
+              placeholder="Senha"
+              v-model="password"
+              class="form-color"
+              type="password"
+              required
+            >
+              <template v-slot:prepend>
+                <span
+                  class="input-group-text border-0 pe-0 form-color"
+                  id="register-addon2"
+                  ><i class="fa-solid fa-lock"></i
+                ></span>
+              </template>
+            </MDBInput>
+          </div>
+          <div class="mb-3">
+            <MDBInput
+              inputGroup
+              aria-label="Repita a senha"
+              aria-describedby="register-addon3"
+              placeholder="Repita a senha"
+              v-model="passwordConfirmation"
+              class="form-color"
+              type="password"
+              required
+            >
+              <template v-slot:prepend>
+                <span
+                  class="input-group-text border-0 pe-0 form-color"
+                  id="register-addon3"
+                  ><i class="fa-solid fa-lock"></i
+                ></span>
+              </template>
+            </MDBInput>
+          </div>
+          <ButtonComponent
+            :type="ButtonTypeEnum.Submit"
+            text="Jogar"
+            full-width
+            :color="ButtonColorEnum.Success"
+            class="mb-3"
+          />
+          <div class="text-center">
+            <MDBBtn
+              color="link"
+              class="text-capitalize btn-link-custom"
+              @click="showLoginModal"
+              >Voltar</MDBBtn
+            >
+          </div>
+        </form>
+      </MDBModalBody>
+    </MDBModal>
     <LoaderComponent />
     <LoadingComponent :loading="isLoading" />
   </div>
@@ -49,9 +212,24 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { MDBFooter, MDBContainer } from 'mdb-vue-ui-kit';
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBModal,
+  MDBModalBody,
+  MDBInput,
+  MDBBtn,
+} from 'mdb-vue-ui-kit';
 import LoaderComponent from '@/components/LoaderComponent.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+import ButtonComponent from '@/components/ButtonComponent.vue';
+import { ButtonTypeEnum, ButtonColorEnum } from '@/enum/ButtonEnum';
+import { useToast } from 'vue-toastification';
+import { api } from '@/config/api';
+import { handleToastError } from '@/utils/utils';
+import router from '@/router';
+
+const toast = useToast();
 
 export default defineComponent({
   name: 'LoginView',
@@ -60,20 +238,59 @@ export default defineComponent({
     MDBContainer,
     LoaderComponent,
     LoadingComponent,
+    MDBModal,
+    MDBModalBody,
+    MDBInput,
+    MDBBtn,
+    ButtonComponent,
   },
   data() {
     return {
       isLoading: false,
+      loginModal: false,
+      loginEmail: '',
+      loginPassword: '',
       year: new Date().getFullYear(),
+      ButtonTypeEnum,
+      ButtonColorEnum,
+      registerModal: false,
+      email: '',
+      password: '',
+      passwordConfirmation: '',
     };
   },
   methods: {
-    testLoading() {
+    showLoginModal() {
+      this.loginModal = true;
+      this.registerModal = false;
+    },
+    handleLoginSubmit() {
+      alert(this.loginEmail);
+    },
+    showRegisterModal() {
+      this.registerModal = true;
+      this.loginModal = false;
+    },
+    handleRegisterSubmit() {
       this.isLoading = true;
-      const interval = setInterval(() => {
-        this.isLoading = false;
-        clearInterval(interval);
-      }, 2000);
+      api
+        .post('/user', {
+          email: this.email,
+          password: this.password,
+          passwordConfirmation: this.passwordConfirmation,
+        })
+        .then(() => {
+          router.push({ name: 'home' });
+        })
+        .catch(error => {
+          handleToastError(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    showRecoveryModal() {
+      toast.warning('Em breve');
     },
   },
 });
