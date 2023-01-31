@@ -3,7 +3,11 @@
     v-bind:class="isLoader ? 'visible' : 'invisible'"
     class="mask text-light d-flex justify-content-center flex-column text-center align-items-center loader-bg"
   >
-    <img src="../assets/images/loading.gif" alt="Loading image" />
+    <img
+      src="../assets/images/loading.gif"
+      alt="Loading image"
+      class="loading-image-animate"
+    />
     <p class="m-0">Carregando...</p>
   </div>
 </template>

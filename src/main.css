@@ -16,3 +16,7 @@ body {
 .t-shadow {
   text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
+.loading-image-animate {
+  height: calc((100vw + 100vh) / 20);
+}
