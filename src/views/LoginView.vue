@@ -26,11 +26,12 @@
     <div
       class="login-bg-text d-flex align-items-center justify-content-center animate__animated animate__flash animate__infinite animate__slower fs-2 t-shadow"
       role="button"
+      @click="testLoading"
     >
       Toque para começar
     </div>
     <div class="position-absolute bottom-0 start-50 translate-middle-x pb-5">
-      <a href="#" target="_blank" rel="noopener noreferrer">
+      <a href="#" target="_blank" rel="noopener noreferrer" tabindex="-1">
         <i class="fa-brands fa-discord fs-2 text-white t-shadow"></i>
       </a>
     </div>
@@ -44,26 +45,39 @@
         <span class="float-end">v0.0.1</span></MDBContainer
       >
     </MDBFooter>
-    <LoadingComponentVue />
+    <LoaderComponent />
+    <LoadingComponent :loading="isLoading" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { MDBFooter, MDBContainer } from 'mdb-vue-ui-kit';
-import LoadingComponentVue from '@/components/LoadingComponent.vue';
+import LoaderComponent from '@/components/LoaderComponent.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default defineComponent({
   name: 'LoginView',
   components: {
     MDBFooter,
     MDBContainer,
-    LoadingComponentVue,
+    LoaderComponent,
+    LoadingComponent,
   },
   data() {
     return {
+      isLoading: false,
       year: new Date().getFullYear(),
     };
+  },
+  methods: {
+    testLoading() {
+      this.isLoading = true;
+      const interval = setInterval(() => {
+        this.isLoading = false;
+        clearInterval(interval);
+      }, 2000);
+    },
   },
 });
 </script>
