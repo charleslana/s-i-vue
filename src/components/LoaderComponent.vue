@@ -40,7 +40,7 @@ export default defineComponent({
       const queue = new createjs.LoadQueue(true);
       queue.loadManifest([
         'img/loading.e969792c.gif',
-        'img/logo.0bde7ac8.png',
+        'img/logo.3eb81df0.png',
         'img/news.bc1506a5.png',
         'img/background_desktop.c052d3fc.jpg',
       ]);

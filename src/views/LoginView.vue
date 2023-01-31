@@ -3,15 +3,12 @@
   <br />
   <router-link to="/test">Link test</router-link> -->
   <div class="login-bg">
-    <div class="position-absolute top-0 start-50 translate-middle-x pt-5">
-      <div class="d-flex align-items-center">
-        <img
-          src="../assets/images/logo.png"
-          alt="Logo image"
-          class="logo-image"
-        />
-        <h4 class="text-uppercase t-shadow m-0 ms-2">Super <br />Island</h4>
-      </div>
+    <div class="position-absolute top-0 start-50 translate-middle-x pt-5 mt-5">
+      <img
+        src="../assets/images/logo.png"
+        alt="Logo image"
+        class="logo-image"
+      />
     </div>
     <div class="position-absolute top-0 end-0 pt-3 pe-3">
       <div class="d-flex flex-column align-items-center" role="button">
@@ -112,10 +109,8 @@ export default defineComponent({
 }
 
 .logo-image {
-  height: calc((100vw + 100vh) / 20);
+  height: calc((100vw + 100vh) / 40);
   object-fit: contain;
-  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 80%);
-  border-radius: 20%;
 }
 
 @media screen and (max-width: 576px) {
