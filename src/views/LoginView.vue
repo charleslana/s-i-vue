@@ -228,6 +228,7 @@ import { useToast } from 'vue-toastification';
 import { api } from '@/config/api';
 import { handleToastError } from '@/utils/utils';
 import router from '@/router';
+import LocalStorageService from '@/services/LocalStorageService';
 
 const toast = useToast();
 
@@ -259,13 +260,34 @@ export default defineComponent({
       passwordConfirmation: '',
     };
   },
+  mounted() {
+    this.checkUserLogged();
+    this.fillLoginData();
+  },
   methods: {
     showLoginModal() {
       this.loginModal = true;
       this.registerModal = false;
     },
     handleLoginSubmit() {
-      alert(this.loginEmail);
+      this.isLoading = true;
+      api
+        .post('/user/login', {
+          email: this.loginEmail,
+          password: this.loginPassword,
+        })
+        .then(response => {
+          LocalStorageService.saveLogin(this.loginEmail, this.loginPassword);
+          LocalStorageService.saveToken(response.data.accessToken);
+          LocalStorageService.saveLogged(true);
+          this.goToHome();
+        })
+        .catch(error => {
+          handleToastError(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     showRegisterModal() {
       this.registerModal = true;
@@ -280,7 +302,9 @@ export default defineComponent({
           passwordConfirmation: this.passwordConfirmation,
         })
         .then(() => {
-          router.push({ name: 'home' });
+          this.loginEmail = this.email;
+          this.loginPassword = this.password;
+          this.handleLoginSubmit();
         })
         .catch(error => {
           handleToastError(error);
@@ -288,6 +312,18 @@ export default defineComponent({
         .finally(() => {
           this.isLoading = false;
         });
+    },
+    goToHome() {
+      router.push({ name: 'home' });
+    },
+    checkUserLogged() {
+      if (LocalStorageService.getLogged()) {
+        this.goToHome();
+      }
+    },
+    fillLoginData() {
+      this.loginEmail = LocalStorageService.getLogin().email;
+      this.loginPassword = LocalStorageService.getLogin().password;
     },
     showRecoveryModal() {
       toast.warning('Em breve');

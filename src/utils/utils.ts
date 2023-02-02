@@ -1,3 +1,5 @@
+import router from '@/router';
+import LocalStorageService from '@/services/LocalStorageService';
 import { useToast } from 'vue-toastification';
 
 export const handleViewHeight = () => {
@@ -21,4 +23,12 @@ export const handleToastError = (error: any) => {
     return;
   }
   toast.error(error.message);
+};
+
+export const validateUserLogged = async (): Promise<boolean> => {
+  if (!LocalStorageService.getLogged()) {
+    await router.push({ name: 'login' });
+    return false;
+  }
+  return true;
 };
