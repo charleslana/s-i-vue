@@ -225,7 +225,7 @@ import LoadingComponent from '@/components/LoadingComponent.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import { ButtonTypeEnum, ButtonColorEnum } from '@/enum/ButtonEnum';
 import { useToast } from 'vue-toastification';
-import { api } from '@/config/api';
+import api from '@/config/api';
 import { handleToastError } from '@/utils/utils';
 import router from '@/router';
 import LocalStorageService from '@/services/LocalStorageService';

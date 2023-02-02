@@ -5,12 +5,19 @@ export default class LocalStorageService {
   }
 
   public static getLogin() {
-    const email = atob(localStorage.getItem('email') ?? '');
-    const password = atob(localStorage.getItem('password') ?? '');
-    return {
-      email,
-      password,
-    };
+    try {
+      const email = atob(localStorage.getItem('email') ?? '');
+      const password = atob(localStorage.getItem('password') ?? '');
+      return {
+        email,
+        password,
+      };
+    } catch (error) {
+      return {
+        email: '',
+        password: '',
+      };
+    }
   }
 
   public static saveToken(token: string): void {
@@ -18,7 +25,11 @@ export default class LocalStorageService {
   }
 
   public static getToken(): string {
-    return atob(localStorage.getItem('token') ?? '');
+    try {
+      return atob(localStorage.getItem('token') ?? '');
+    } catch (error) {
+      return '';
+    }
   }
 
   public static removeToken(): void {

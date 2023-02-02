@@ -1,4 +1,5 @@
 <template>
+  <UserNavBarComponent />
   <h1>Hello {{ email }}</h1>
   <UserModalComponent />
 </template>
@@ -8,11 +9,13 @@ import { defineComponent } from 'vue';
 import UserModalComponent from '@/components/UserModalComponent.vue';
 import { validateUserLogged } from '@/utils/utils';
 import LocalStorageService from '@/services/LocalStorageService';
+import UserNavBarComponent from '@/components/UserNavBarComponent.vue';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     UserModalComponent,
+    UserNavBarComponent,
   },
   data() {
     return {

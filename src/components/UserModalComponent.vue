@@ -3,17 +3,14 @@
 </template>
 
 <script lang="ts">
-import router from '@/router';
-import LocalStorageService from '@/services/LocalStorageService';
 import { defineComponent } from 'vue';
+import { removeSession } from '@/utils/utils';
 
 export default defineComponent({
   name: 'UserModalComponent',
   methods: {
-    logout() {
-      LocalStorageService.removeToken();
-      LocalStorageService.saveLogged(false);
-      router.push({ name: 'login' });
+    async logout() {
+      await removeSession();
     },
   },
 });

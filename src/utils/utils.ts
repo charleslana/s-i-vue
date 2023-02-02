@@ -2,7 +2,7 @@ import router from '@/router';
 import LocalStorageService from '@/services/LocalStorageService';
 import { useToast } from 'vue-toastification';
 
-export const handleViewHeight = () => {
+export const handleViewHeight = (): void => {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
   window.addEventListener('resize', () => {
@@ -12,7 +12,7 @@ export const handleViewHeight = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleToastError = (error: any) => {
+export const handleToastError = (error: any): void => {
   const toast = useToast();
   if (error.response) {
     if (error.response.data.validation) {
@@ -31,4 +31,10 @@ export const validateUserLogged = async (): Promise<boolean> => {
     return false;
   }
   return true;
+};
+
+export const removeSession = async (): Promise<void> => {
+  LocalStorageService.removeToken();
+  LocalStorageService.saveLogged(false);
+  await router.push({ name: 'login' });
 };
