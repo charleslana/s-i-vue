@@ -205,7 +205,6 @@
         </form>
       </MDBModalBody>
     </MDBModal>
-    <LoaderComponent />
     <LoadingComponent :loading="isLoading" />
   </div>
 </template>
@@ -220,7 +219,6 @@ import {
   MDBInput,
   MDBBtn,
 } from 'mdb-vue-ui-kit';
-import LoaderComponent from '@/components/LoaderComponent.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import { ButtonTypeEnum, ButtonColorEnum } from '@/enum/ButtonEnum';
@@ -237,7 +235,6 @@ export default defineComponent({
   components: {
     MDBFooter,
     MDBContainer,
-    LoaderComponent,
     LoadingComponent,
     MDBModal,
     MDBModalBody,
@@ -308,8 +305,6 @@ export default defineComponent({
         })
         .catch(error => {
           handleToastError(error);
-        })
-        .finally(() => {
           this.isLoading = false;
         });
     },
