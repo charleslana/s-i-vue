@@ -1,4 +1,7 @@
 <template>
+  <!-- <h1>Login</h1>
+  <br />
+  <router-link to="/test">Link test</router-link> -->
   <UserNavBarComponent />
   <h1>Hello {{ email }}</h1>
   <UserModalComponent />

@@ -1,7 +1,4 @@
 <template>
-  <!-- <h1>Login</h1>
-  <br />
-  <router-link to="/test">Link test</router-link> -->
   <div class="login-bg">
     <div class="position-absolute top-0 start-50 translate-middle-x pt-5 mt-5">
       <img
@@ -205,7 +202,6 @@
         </form>
       </MDBModalBody>
     </MDBModal>
-    <LoadingComponent :loading="isLoading" />
   </div>
 </template>
 
@@ -219,14 +215,13 @@ import {
   MDBInput,
   MDBBtn,
 } from 'mdb-vue-ui-kit';
-import LoadingComponent from '@/components/LoadingComponent.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import { ButtonTypeEnum, ButtonColorEnum } from '@/enum/ButtonEnum';
 import { useToast } from 'vue-toastification';
-import api from '@/config/api';
-import { handleToastError } from '@/utils/utils';
 import router from '@/router';
 import LocalStorageService from '@/services/LocalStorageService';
+import RegisterService from '@/services/RegisterService';
+import LoginService from '@/services/LoginService';
 
 const toast = useToast();
 
@@ -235,7 +230,6 @@ export default defineComponent({
   components: {
     MDBFooter,
     MDBContainer,
-    LoadingComponent,
     MDBModal,
     MDBModalBody,
     MDBInput,
@@ -244,7 +238,6 @@ export default defineComponent({
   },
   data() {
     return {
-      isLoading: false,
       loginModal: false,
       loginEmail: '',
       loginPassword: '',
@@ -267,53 +260,25 @@ export default defineComponent({
       this.registerModal = false;
     },
     handleLoginSubmit() {
-      this.isLoading = true;
-      api
-        .post('/user/login', {
-          email: this.loginEmail,
-          password: this.loginPassword,
-        })
-        .then(response => {
-          LocalStorageService.saveLogin(this.loginEmail, this.loginPassword);
-          LocalStorageService.saveToken(response.data.accessToken);
-          LocalStorageService.saveLogged(true);
-          this.goToHome();
-        })
-        .catch(error => {
-          handleToastError(error);
-        })
-        .finally(() => {
-          this.isLoading = false;
-        });
+      LoginService.login({
+        email: this.loginEmail,
+        password: this.loginPassword,
+      });
     },
     showRegisterModal() {
       this.registerModal = true;
       this.loginModal = false;
     },
     handleRegisterSubmit() {
-      this.isLoading = true;
-      api
-        .post('/user', {
-          email: this.email,
-          password: this.password,
-          passwordConfirmation: this.passwordConfirmation,
-        })
-        .then(() => {
-          this.loginEmail = this.email;
-          this.loginPassword = this.password;
-          this.handleLoginSubmit();
-        })
-        .catch(error => {
-          handleToastError(error);
-          this.isLoading = false;
-        });
-    },
-    goToHome() {
-      router.push({ name: 'home' });
+      RegisterService.save({
+        email: this.email,
+        password: this.password,
+        passwordConfirmation: this.passwordConfirmation,
+      });
     },
     checkUserLogged() {
       if (LocalStorageService.getLogged()) {
-        this.goToHome();
+        router.push({ name: 'home' });
       }
     },
     fillLoginData() {

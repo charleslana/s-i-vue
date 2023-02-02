@@ -17,10 +17,6 @@ body {
   text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
 
-.loading-image-animate {
-  height: calc((100vw + 100vh) / 20);
-}
-
 .modal-body-custom {
   box-shadow: 0 1px 10px 0 rgb(0 0 0 / 40%);
   background-color: #2a2f34;
