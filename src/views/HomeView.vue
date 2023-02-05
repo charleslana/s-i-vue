@@ -4,7 +4,12 @@
   <router-link to="/test">Link test</router-link> -->
   <UserNavBarComponent />
   <div class="home-bg draggable">
-    <button @click="test">Test</button>
+    <div
+      class="shop-position d-flex align-items-center justify-content-center"
+      role="button"
+    >
+      <MDBBadge badge="dark" pill class="badge-bg fs-6">Loja de itens</MDBBadge>
+    </div>
   </div>
 </template>
 
@@ -15,11 +20,13 @@ import UserNavBarComponent from '@/components/UserNavBarComponent.vue';
 import interact from 'interactjs';
 import { DragEvent } from '@interactjs/types/index';
 import {} from '@/utils/sound';
+import { MDBBadge } from 'mdb-vue-ui-kit';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     UserNavBarComponent,
+    MDBBadge,
   },
   data() {
     return {};
@@ -30,9 +37,6 @@ export default defineComponent({
     this.draggable();
   },
   methods: {
-    test() {
-      alert('clickable');
-    },
     draggable() {
       interact('.draggable').draggable({
         inertia: true,
@@ -74,6 +78,15 @@ export default defineComponent({
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
+  position: relative;
+}
+
+.shop-position {
+  position: absolute;
+  top: 27vh;
+  left: 60vw;
+  width: 150px;
+  height: 150px;
 }
 
 @media screen and (max-width: 1136px) {
@@ -81,6 +94,12 @@ export default defineComponent({
     background-size: cover;
     width: 1136px;
     height: calc(var(--vh, 1vh) * 100);
+  }
+
+  .shop-position {
+    position: absolute;
+    top: 159px;
+    left: 673px;
   }
 }
 </style>
