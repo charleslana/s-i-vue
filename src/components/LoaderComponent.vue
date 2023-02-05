@@ -68,6 +68,10 @@ export default defineComponent({
         id: 'bgmHome',
         src: '/assets/sounds/bgm_home.mp3',
       });
+      queue.loadFile({
+        id: 'btnTab',
+        src: '/assets/sounds/btn_tab.mp3',
+      });
       queue.addEventListener('complete', this.hideLoader);
     },
     showProgress() {

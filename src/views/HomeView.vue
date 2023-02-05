@@ -19,7 +19,7 @@ import { validateUserLogged } from '@/utils/utils';
 import UserNavBarComponent from '@/components/UserNavBarComponent.vue';
 import interact from 'interactjs';
 import { DragEvent } from '@interactjs/types/index';
-import {} from '@/utils/sound';
+import { bgmHome } from '@/utils/sound';
 import { MDBBadge } from 'mdb-vue-ui-kit';
 
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
   },
   async mounted() {
     await validateUserLogged();
-    // bgmHome();
+    bgmHome();
     this.draggable();
   },
   methods: {

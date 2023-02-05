@@ -13,7 +13,7 @@ export const handleViewHeight = (): void => {
   });
 };
 
-export const handleBrowserTab = () => {
+export const handleBrowserTab = (): void => {
   const tabCount = LocalStorageService.getTab();
   window.addEventListener(
     'storage',

@@ -51,4 +51,20 @@ export default class LocalStorageService {
   public static getTab(): number {
     return Number(localStorage.getItem('count'));
   }
+
+  public static saveSoundBGM(sound: boolean): void {
+    localStorage.setItem('soundBGM', JSON.stringify(sound));
+  }
+
+  public static getSoundBGM(): boolean {
+    return Boolean(JSON.parse(localStorage.getItem('soundBGM') ?? 'true'));
+  }
+
+  public static saveSoundEffect(sound: boolean): void {
+    localStorage.setItem('soundEffect', JSON.stringify(sound));
+  }
+
+  public static getSoundEffect(): boolean {
+    return Boolean(JSON.parse(localStorage.getItem('soundEffect') ?? 'true'));
+  }
 }
