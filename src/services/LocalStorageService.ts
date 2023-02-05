@@ -43,4 +43,12 @@ export default class LocalStorageService {
   public static getLogged(): boolean {
     return Boolean(JSON.parse(localStorage.getItem('logged') ?? 'false'));
   }
+
+  public static saveTab(count: number): void {
+    localStorage.setItem('count', count.toString());
+  }
+
+  public static getTab(): number {
+    return Number(localStorage.getItem('count'));
+  }
 }

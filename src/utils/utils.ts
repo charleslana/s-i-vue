@@ -13,6 +13,22 @@ export const handleViewHeight = (): void => {
   });
 };
 
+export const handleBrowserTab = () => {
+  const tabCount = LocalStorageService.getTab();
+  window.addEventListener(
+    'storage',
+    event => {
+      if (Number(event.newValue) <= tabCount) {
+        window.location.href = 'about:blank';
+        return;
+      }
+      LocalStorageService.saveTab(tabCount + 1);
+    },
+    false
+  );
+  LocalStorageService.saveTab(tabCount + 1);
+};
+
 export const handleToastError = (error: IError): void => {
   if (error.response) {
     if (error.response.status === 401) {
