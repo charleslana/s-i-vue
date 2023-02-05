@@ -332,4 +332,10 @@ export default defineComponent({
     background-image: url('../assets/images/login/background_mobile.jpg');
   }
 }
+
+.modal-body-custom {
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 40%);
+  background-color: #2a2f34;
+  border-bottom: #202429 solid 2px;
+}
 </style>

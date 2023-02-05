@@ -6,7 +6,7 @@
     <div
       class="d-flex align-items-center max-first-nav"
       role="button"
-      @click="userModal = true"
+      @click="showUserModal"
     >
       <div class="position-relative">
         <img
@@ -107,6 +107,7 @@ import {
 } from 'mdb-vue-ui-kit';
 import { abbreviateNumber, numberFormatter } from '@/utils/utils';
 import UserModalComponent from '@/components/UserModalComponent.vue';
+import { btnClick, btnClose } from '@/utils/sound';
 
 export default defineComponent({
   name: 'UserNavBarComponent',
@@ -138,7 +139,12 @@ export default defineComponent({
     }
   },
   methods: {
+    showUserModal() {
+      btnClick();
+      this.userModal = true;
+    },
     hideUserModal(value: boolean) {
+      btnClose();
       this.userModal = value;
     },
     async getUserDetails() {

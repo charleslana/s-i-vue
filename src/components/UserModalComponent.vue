@@ -1,4 +1,8 @@
 <template>
+  <!--
+    :keyboard="false"
+    staticBackdrop
+   -->
   <MDBModal
     id="modalCenter"
     tabindex="-1"
@@ -6,31 +10,26 @@
     v-model="isShow"
     centered
     :animation="false"
-    :keyboard="false"
-    staticBackdrop
+    @hide="closeModal"
   >
-    <MDBModalBody class="modal-body-custom rounded-5">
-      <div
-        class="position-absolute close-icon"
-        role="button"
-        @click="closeModal"
-      >
-        <img
-          src="../assets/images/icon/close_button.png"
-          alt="Close button image"
-          width="40"
-          height="40"
-        />
-      </div>
+    <MDBModalHeader class="modal-header-custom" />
+    <MDBModalBody class="modal-body-custom">
       <button @click="logout">Logout</button>
     </MDBModalBody>
+    <MDBModalFooter class="modal-footer-custom" />
   </MDBModal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { removeSession } from '@/utils/utils';
-import { MDBModal, MDBModalBody } from 'mdb-vue-ui-kit';
+import {
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModalFooter,
+} from 'mdb-vue-ui-kit';
+import { stopBgmHome } from '@/utils/sound';
 
 export default defineComponent({
   name: 'UserModalComponent',
@@ -38,6 +37,8 @@ export default defineComponent({
   components: {
     MDBModal,
     MDBModalBody,
+    MDBModalHeader,
+    MDBModalFooter,
   },
   props: {
     modal: Boolean,
@@ -52,6 +53,7 @@ export default defineComponent({
   },
   methods: {
     async logout() {
+      stopBgmHome();
       await removeSession();
     },
     closeModal() {

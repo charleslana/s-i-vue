@@ -3,7 +3,9 @@
   <br />
   <router-link to="/test">Link test</router-link> -->
   <UserNavBarComponent />
-  <div class="home-bg draggable"></div>
+  <div class="home-bg draggable">
+    <button @click="test">Test</button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,6 +14,7 @@ import { validateUserLogged } from '@/utils/utils';
 import UserNavBarComponent from '@/components/UserNavBarComponent.vue';
 import interact from 'interactjs';
 import { DragEvent } from '@interactjs/types/index';
+import {} from '@/utils/sound';
 
 export default defineComponent({
   name: 'HomeView',
@@ -23,9 +26,13 @@ export default defineComponent({
   },
   async mounted() {
     await validateUserLogged();
+    // bgmHome();
     this.draggable();
   },
   methods: {
+    test() {
+      alert('clickable');
+    },
     draggable() {
       interact('.draggable').draggable({
         inertia: true,

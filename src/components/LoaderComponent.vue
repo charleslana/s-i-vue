@@ -32,7 +32,7 @@ export default defineComponent({
     this.showLoader();
   },
   created() {
-    this.loadImages();
+    this.loadData();
   },
   methods: {
     showLoader(): void {
@@ -44,7 +44,7 @@ export default defineComponent({
       this.isLoader = false;
       this.body.remove('overflow-hidden');
     },
-    loadImages() {
+    loadData() {
       window.createjs = createjs;
       const queue = new createjs.LoadQueue(true);
       queue.loadManifest([
@@ -54,6 +54,20 @@ export default defineComponent({
         'img/1.56cc79c0.png',
         'img/home_bg.5e3ec73d.jpg',
       ]);
+      createjs.Sound.alternateExtensions = ['mp3'];
+      queue.installPlugin(createjs.Sound);
+      queue.loadFile({
+        id: 'btnClick',
+        src: '/assets/sounds/btn_click.mp3',
+      });
+      queue.loadFile({
+        id: 'btnClose',
+        src: '/assets/sounds/btn_close.mp3',
+      });
+      queue.loadFile({
+        id: 'bgmHome',
+        src: '/assets/sounds/bgm_home.mp3',
+      });
       queue.addEventListener('complete', this.hideLoader);
     },
     showProgress() {

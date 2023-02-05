@@ -9,6 +9,11 @@ body {
   color: white;
   overflow: hidden;
   touch-action: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .fw-500 {
@@ -19,10 +24,33 @@ body {
   text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
 
-.modal-body-custom {
+.modal-content {
+  background-color: #2a2f34;
+}
+
+.modal-header-custom {
   box-shadow: 0 1px 10px 0 rgb(0 0 0 / 40%);
   background-color: #2a2f34;
+  border: none;
+}
+
+.modal-body-custom {
+  background-color: #2a2f34;
+}
+
+.modal-footer-custom {
+  background-color: #2a2f34;
+  border-top: none;
   border-bottom: #202429 solid 2px;
+}
+
+.btn-close {
+  background: rgba(0, 0, 0, 0) url('./assets/images/icon/close_button.png');
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  opacity: 1;
 }
 
 .form-notch-leading,
@@ -86,9 +114,4 @@ body {
 
 ::-webkit-scrollbar-thumb:active {
   background: rgba(0, 0, 0, 0.9);
-}
-
-.close-icon {
-  right: -8px;
-  top: -8px;
 }
