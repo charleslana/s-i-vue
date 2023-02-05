@@ -1,8 +1,4 @@
 <template>
-  <!--
-    :keyboard="false"
-    staticBackdrop
-   -->
   <MDBModal
     id="modalCenter"
     tabindex="-1"

@@ -66,5 +66,7 @@ export const abbreviateNumber = (number: number): string => {
 };
 
 export const numberFormatter = (number: number): string => {
-  return number.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+  return Number(number)
+    .toFixed(0)
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 };

@@ -92,6 +92,38 @@
     </div>
   </MDBNavbar>
   <UserModalComponent :modal="userModal" @userModal="hideUserModal" />
+  <MDBModal
+    id="usernameModalCenter"
+    tabindex="-1"
+    labelledby="usernameModalCenterTitle"
+    v-model="usernameModal"
+    centered
+    :animation="false"
+    :keyboard="false"
+    staticBackdrop
+    @hide="btnClose"
+  >
+    <MDBModalBody class="modal-body-only-custom rounded-5">
+      <form @submit.prevent="handleUsernameSubmit">
+        <div class="mb-3">
+          <MDBInput
+            label="Nome"
+            v-model="username"
+            class="form-color"
+            type="text"
+            required
+          />
+        </div>
+        <ButtonComponent
+          :type="ButtonTypeEnum.Submit"
+          text="Continuar"
+          full-width
+          :color="ButtonColorEnum.Primary"
+          @click="btnClick"
+        />
+      </form>
+    </MDBModalBody>
+  </MDBModal>
 </template>
 
 <script lang="ts">
@@ -104,10 +136,15 @@ import {
   MDBProgress,
   MDBProgressBar,
   MDBTooltip,
+  MDBModal,
+  MDBModalBody,
+  MDBInput,
 } from 'mdb-vue-ui-kit';
 import { abbreviateNumber, numberFormatter } from '@/utils/utils';
 import UserModalComponent from '@/components/UserModalComponent.vue';
 import { btnClick, btnClose } from '@/utils/sound';
+import ButtonComponent from '@/components/ButtonComponent.vue';
+import { ButtonTypeEnum, ButtonColorEnum } from '@/enum/ButtonEnum';
 
 export default defineComponent({
   name: 'UserNavBarComponent',
@@ -117,9 +154,21 @@ export default defineComponent({
     MDBProgressBar,
     MDBTooltip,
     UserModalComponent,
+    MDBModal,
+    MDBModalBody,
+    MDBInput,
+    ButtonComponent,
   },
   data() {
     return {
+      usernameModal: false,
+      ButtonTypeEnum,
+      ButtonColorEnum,
+      username: '',
+      abbreviateNumber,
+      numberFormatter,
+      btnClick,
+      btnClose,
       userModal: false,
       tooltipStamina: false,
       tooltipBelly: false,
@@ -137,6 +186,9 @@ export default defineComponent({
     if (await validateUserLogged()) {
       await this.getUserDetails();
     }
+    if (this.name === null) {
+      this.usernameModal = true;
+    }
   },
   methods: {
     showUserModal() {
@@ -149,18 +201,18 @@ export default defineComponent({
     },
     async getUserDetails() {
       const user = (await UserService.fetchUserDetail()) as IUser;
-      this.name = user.name ?? (user.email as string);
+      this.name = user.name as string;
       this.level = user.level as number;
       this.expProgress = ((user.experience as number) * 100) / 100;
       this.stamina = user.stamina as number;
       this.belly = user.belly as number;
       this.gem = user.gem as number;
     },
-    numberFormatter(number: number): string {
-      return numberFormatter(+number);
-    },
-    abbreviateNumber(number: number): string {
-      return abbreviateNumber(number);
+    async handleUsernameSubmit() {
+      this.name = (await UserService.updateName(this.username)) as string;
+      if (this.name) {
+        this.usernameModal = false;
+      }
     },
   },
 });

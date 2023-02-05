@@ -44,6 +44,12 @@ body {
   border-bottom: #202429 solid 2px;
 }
 
+.modal-body-only-custom {
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 40%);
+  background-color: #2a2f34;
+  border-bottom: #202429 solid 2px;
+}
+
 .btn-close {
   background: rgba(0, 0, 0, 0) url('./assets/images/icon/close_button.png');
   background-size: contain;
@@ -53,11 +59,20 @@ body {
   opacity: 1;
 }
 
-.form-notch-leading,
-.form-notch-middle,
-.form-notch-trailing {
+.form-outline .form-control:focus ~ .form-notch .form-notch-leading,
+.form-outline .form-control:focus ~ .form-notch .form-notch-trailing {
   box-shadow: none !important;
   border-color: #a5a6a8 !important;
+}
+
+.form-outline .form-control:focus ~ .form-notch .form-notch-middle {
+  border-color: #a5a6a8;
+  box-shadow: none !important;
+  border-top: 1px solid rgba(0, 0, 0, 0);
+}
+
+.form-label {
+  color: #a5a6a8 !important;
 }
 
 .form-color,

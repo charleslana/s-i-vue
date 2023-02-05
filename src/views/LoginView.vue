@@ -47,7 +47,7 @@
       centered
       :animation="false"
     >
-      <MDBModalBody class="modal-body-custom rounded-5">
+      <MDBModalBody class="modal-body-only-custom rounded-5">
         <form @submit.prevent="handleLoginSubmit">
           <div class="mb-3">
             <MDBInput
@@ -122,7 +122,7 @@
       centered
       :animation="false"
     >
-      <MDBModalBody class="modal-body-custom rounded-5">
+      <MDBModalBody class="modal-body-only-custom rounded-5">
         <form @submit.prevent="handleRegisterSubmit">
           <div class="mb-3">
             <MDBInput
@@ -331,11 +331,5 @@ export default defineComponent({
   .login-bg {
     background-image: url('../assets/images/login/background_mobile.jpg');
   }
-}
-
-.modal-body-custom {
-  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 40%);
-  background-color: #2a2f34;
-  border-bottom: #202429 solid 2px;
 }
 </style>
