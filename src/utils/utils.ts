@@ -41,3 +41,14 @@ export const removeSession = async (): Promise<void> => {
   LocalStorageService.saveLogged(false);
   await router.push({ name: 'login' });
 };
+
+export const abbreviateNumber = (number: number): string => {
+  return Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(number);
+};
+
+export const numberFormatter = (number: number): string => {
+  return number.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+};

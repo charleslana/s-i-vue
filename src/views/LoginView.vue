@@ -251,6 +251,7 @@ export default defineComponent({
     };
   },
   mounted() {
+    document.body.style.paddingTop = '';
     this.checkUserLogged();
     this.fillLoginData();
   },

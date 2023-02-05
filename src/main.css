@@ -5,8 +5,10 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #131313;
+  background-color: #2f99f1;
   color: white;
+  overflow: hidden;
+  touch-action: none;
 }
 
 .fw-500 {
@@ -41,4 +43,52 @@ body {
 
 .btn-link-custom:hover {
   background-color: transparent;
+}
+
+.premium-name {
+  -webkit-animation: premium-name 1s ease-in-out infinite alternate;
+  -moz-animation: premium-name 1s ease-in-out infinite alternate;
+  animation: premium-name 1s ease-in-out infinite alternate;
+}
+
+@keyframes premium-name {
+  from {
+    text-shadow: 0 0 2px #4d1c75, 0 0 2px #4d1c75, 0 0 2px#4d1c75,
+      0 0 2px #4d1c75, 0 0 2px#4d1c75, 0 0 2px #4d1c75;
+  }
+  to {
+    text-shadow: 0 0 2px #232a8f, 0 0 2px #232a8f, 0 0 2px #232a8f,
+      0 0 2px #232a8f, 0 0 2px #232a8f, 0 0 2px #232a8f;
+  }
+}
+
+.tooltip-inner {
+  background-color: #30353a;
+  border-bottom: 3px solid #4d98d6;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.close-icon {
+  right: -8px;
+  top: -8px;
 }

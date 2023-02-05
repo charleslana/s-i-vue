@@ -11,6 +11,7 @@ export default class UserService {
       .get('/user/profile/detail')
       .then(response => {
         user.name = response.data.name;
+        user.email = response.data.email;
         user.belly = response.data.belly;
         user.experience = response.data.experience;
         user.gem = response.data.gem;

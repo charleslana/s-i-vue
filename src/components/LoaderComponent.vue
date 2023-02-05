@@ -51,6 +51,8 @@ export default defineComponent({
         'img/logo.3eb81df0.png',
         'img/news.bc1506a5.png',
         'img/background_desktop.c052d3fc.jpg',
+        'img/1.56cc79c0.png',
+        'img/home_bg.5e3ec73d.jpg',
       ]);
       queue.addEventListener('complete', this.hideLoader);
     },
