@@ -20,6 +20,10 @@ body {
   font-weight: 500;
 }
 
+.fw-700 {
+  font-weight: 700;
+}
+
 .t-shadow {
   text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
@@ -133,4 +137,8 @@ body {
 
 .badge-bg {
   background-color: rgba(36, 36, 36, 0.9) !important;
+}
+
+.navbar-bg {
+  background-color: #202429 !important;
 }

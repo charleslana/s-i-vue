@@ -1,10 +1,10 @@
 <template>
-  <MDBProgress class="progress-custom">
-    <MDBProgressBar :value="expProgress" />
-  </MDBProgress>
-  <MDBNavbar dark bg="dark" position="top" container>
+  <MDBNavbar dark bg="dark" position="top" class="navbar-bg p-0">
+    <MDBProgress class="progress-custom w-100">
+      <MDBProgressBar :value="expProgress" />
+    </MDBProgress>
     <div
-      class="d-flex align-items-center max-first-nav"
+      class="d-flex align-items-center max-first-nav p-2"
       role="button"
       @click="showUserModal"
     >
@@ -24,7 +24,9 @@
         {{ name }}
       </span>
     </div>
-    <div class="d-flex align-items-center justify-content-end max-second-nav">
+    <div
+      class="d-flex align-items-center justify-content-end max-second-nav p-2"
+    >
       <MDBTooltip v-model="tooltipStamina" direction="bottom">
         <template #reference>
           <div class="d-flex align-items-center stats-bg rounded p-1 me-1">
@@ -182,7 +184,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    document.body.style.paddingTop = '54px';
+    document.body.style.paddingTop = '60px';
     if (await validateUserLogged()) {
       await this.getUserDetails();
     }

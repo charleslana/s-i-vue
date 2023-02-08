@@ -11,6 +11,7 @@
       <MDBBadge badge="dark" pill class="badge-bg fs-6">Loja de itens</MDBBadge>
     </div>
   </div>
+  <NavigationBarComponent />
 </template>
 
 <script lang="ts">
@@ -21,12 +22,14 @@ import interact from 'interactjs';
 import { DragEvent } from '@interactjs/types/index';
 import { bgmHome } from '@/utils/sound';
 import { MDBBadge } from 'mdb-vue-ui-kit';
+import NavigationBarComponent from '@/components/NavigationBarComponent.vue';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     UserNavBarComponent,
     MDBBadge,
+    NavigationBarComponent,
   },
   data() {
     return {};
@@ -79,12 +82,13 @@ export default defineComponent({
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
   position: relative;
+  cursor: default !important;
 }
 
 .shop-position {
   position: absolute;
   top: 27vh;
-  left: 60vw;
+  left: 31vw;
   width: 150px;
   height: 150px;
 }
@@ -99,7 +103,7 @@ export default defineComponent({
   .shop-position {
     position: absolute;
     top: 159px;
-    left: 673px;
+    left: 320px;
   }
 }
 </style>

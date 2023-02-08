@@ -53,6 +53,11 @@ export default defineComponent({
         'img/background_desktop.c052d3fc.jpg',
         'img/1.56cc79c0.png',
         'img/home_bg.5e3ec73d.jpg',
+        'img/chapter.959208a4.png',
+        'img/crew.4ccd1ddc.png',
+        'img/home.173ede56.png',
+        'img/inventory.d7716037.png',
+        'img/menu.9d8225d8.png',
       ]);
       createjs.Sound.alternateExtensions = ['mp3'];
       queue.installPlugin(createjs.Sound);
